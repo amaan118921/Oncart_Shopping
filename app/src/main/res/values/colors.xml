@@ -6,5 +6,17 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="view_black">#75000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="badge_color">#7C6BD7</color>
+    <color name="status_bar_home">#F2F2F2</color>
+    <color name="unselected">#551E2D3E</color>
+    <color name="login_card_stroke">#e4e5ed</color>
+    <color name="app_blue">#5a56e9</color>
+    <color name="dot_indicator_purple">#c0b3c2</color>
+    <color name="selected_dot_color">#ffff6e</color>
+    <color name="white_10">#E6E6E6</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="detail_fragment_top">#f6f5fa</color>
 </resources>

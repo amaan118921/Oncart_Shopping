@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">Oncart</string>
+    <string name="find_your_ngadget">Find your \nGadget</string>
+    <string name="get_started">Get Started</string>
+    <string name="get_your_fav_clothes">Get your Favorite Clothes</string>
+    <string name="get_started_with_onCart">Get Started with Oncart</string>
+    <string name="begin_your_journey_with_oncart">Begin your Journey with Oncart</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="laptops">Laptops</string>
+    <string name="men_top">Men TopWears</string>
+    <string name="men_top_wear">Men Topwear</string>
+    <string name="men_bottom_wear">Men Bottomwear</string>
+    <string name="men_bottom">Men BottomWears</string>
+    <string name="Televisions">Televisions</string>
+    <string name="Television">Television</string>
+    <string name="password">Password</string>
+    <string name="or">Or continue with</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="login_with_phone">Continue with Phone</string>
+    <string name="new_user">New User?</string>
+    <string name="register_now">Register now</string>
+    <string name="home">Home</string>
+    <string name="cart">Cart</string>
+    <string name="liked">Liked</string>
+    <string name="account">Account</string>
+    <string name="welcome">Welcome</string>
+    <string name="mobiles">Mobiles</string>
+    <string name="mobile">Mobile</string>
+    <string name="our_products">Our Products</string>
+    <string name="your_internet_connection_is_currently_n_not_available_please_check_or_try_again">Your internet connection is currently\n not available please check or try again.</string>
+    <string name="try_again">Try again</string>
+    <string name="no_internet_connection">No internet Connection</string>
+    <string name="oneplus_tv">Oneplus TV</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="cart_success">Added to Cart</string>
+
 </resources>

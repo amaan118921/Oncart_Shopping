@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="175dp"
+        android:layout_height="250dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="12dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            >
+            <ImageView
+                android:id="@+id/ivItem"
+                android:layout_width="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_height="115dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/c11_2021_rmx3231_realme_original_imag4j4yrdt7d9cj"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/ivItem"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/tvItemName"
+                android:gravity="center"
+                android:padding="2dp"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/spartanmedium500"
+                android:text="Realme C11 2021 \n(Cool Blue, 32 GB)  (2 GB RAM)"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

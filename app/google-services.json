@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "309260293617",
+    "project_id": "oncart-api",
+    "storage_bucket": "oncart-api.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309260293617:android:f5147090df62ad1b826050",
+        "android_client_info": {
+          "package_name": "com.example.oncart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309260293617-jmqbv612sgfrm7d8hi9nb4n0sk2i6099.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDW6dnAmgeAvKtfY-VO_v09iHyqoCeISKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309260293617-jmqbv612sgfrm7d8hi9nb4n0sk2i6099.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,8 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
-
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 android {
     compileSdk 32
 
@@ -32,14 +35,29 @@ android {
 }
 
 dependencies {
-    //chip navigation bar
-    implementation 'com.github.ismaeldivita:chip-navigation-bar:1.3.4'
+    //eventbus
+    implementation("org.greenrobot:eventbus:3.3.1")
 
+    // dots indicator
+    implementation 'com.tbuonomo:dotsindicator:4.2'
+
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.10'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+    implementation 'com.google.firebase:firebase-database:19.2.1'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //retrofit and moshi
+    implementation 'com.squareup.moshi:moshi-kotlin:1.9.3'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
 }

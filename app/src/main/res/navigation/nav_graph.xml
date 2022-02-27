@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startingFragment">
+
+    <fragment
+        android:id="@+id/baseFragment"
+        android:name="com.example.oncart.fragments.BaseFragment"
+        android:label="BaseFragment" />
+    <fragment
+        android:id="@+id/startingFragment"
+        android:name="com.example.oncart.fragments.StartingFragment"
+        android:label="fragment_starting"
+        tools:layout="@layout/fragment_starting" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.oncart.fragments.LoginFragment"
+        android:label="LoginFragment" />
+</navigation>
