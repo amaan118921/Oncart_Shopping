@@ -24,7 +24,7 @@
         android:src="@drawable/ic_outline_notifications_24"/>
 
     <TextView
-        android:id="@+id/cart_badge"
+        android:id="@+id/tvBadge"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_gravity="right|end|top"

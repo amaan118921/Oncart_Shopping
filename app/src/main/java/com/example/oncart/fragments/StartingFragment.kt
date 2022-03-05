@@ -35,7 +35,7 @@ class StartingFragment: BaseFragment(), ScrollListenerHelper.OnSnapPositionChang
     override fun onClick(view: View?) {
         when(view?.id) {
             R.id.btnGetStarted -> {
-                navigateTo(Constants.LOGIN_NAV_ID, Bundle())
+                replaceFragment(Constants.LOGIN_ID, null)
             }
          }
     }

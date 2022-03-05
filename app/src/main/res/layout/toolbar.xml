@@ -33,19 +33,40 @@
         />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:id="@+id/ivFav"
         android:visibility="gone"
-        android:src="@drawable/ic_baseline_favorite_border_24"
+        android:src="@drawable/heart__4_"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="10dp"/>
 
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:id="@+id/ivClearCart"
+        android:visibility="gone"
+        android:src="@drawable/delete"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="10dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tvCentre"
+        android:gravity="center"
+        android:text="@string/cart"
+        android:visibility="gone"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:fontFamily="@font/spartanmedium500"
+        />
     <include layout="@layout/notification_badge"
         android:id="@+id/badge"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="style_search" parent="Widget.AppCompat.SearchView">
+        <item name="android:windowSoftInputMode">adjustNothing</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:state_focused">false</item>
+        <item name="fontFamily">@font/spartanreg</item>
+        <item name="android:state_window_focused">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="colorControlActivated">@color/black</item>
+    </style>
+</resources>

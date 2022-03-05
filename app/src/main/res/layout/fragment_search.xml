@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="265dp"
+        android:layout_height="65dp"
+        android:id="@+id/cvSearch"
+        app:cardCornerRadius="30dp"
+        app:strokeColor="@color/app_blue"
+        app:strokeWidth="2dp"
+        android:focusableInTouchMode="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="2dp"
+            >
+            <androidx.appcompat.widget.SearchView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/sv"
+                app:searchIcon="@drawable/ic_baseline_search_24"
+                app:queryHint="Search..."
+                app:queryBackground="@color/white"
+                app:iconifiedByDefault="false"
+                android:theme="@style/style_search"
+                app:closeIcon="@color/white"
+                android:focusedByDefault="false"
+                android:clipToPadding="false"
+                android:background="@null"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

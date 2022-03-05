@@ -1,6 +1,7 @@
 package com.example.oncart.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_view_products.view.*
 import kotlinx.android.synthetic.main.tv_item_view.view.*
 
-class ProductItemAdapter(private val listener: Listener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ProductItemAdapter(private val listener: Listener, private val context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface Listener {
         fun onProductItemClick(product: ProductItems)
@@ -27,6 +28,7 @@ class ProductItemAdapter(private val listener: Listener): RecyclerView.Adapter<R
     inner class ProductItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
         var tvProductName = view.tvItemName
         var ivProduct = view.ivItem
+        var tvPrice = view.tvPrice
     }
 
     inner class TeleViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -48,7 +50,7 @@ class ProductItemAdapter(private val listener: Listener): RecyclerView.Adapter<R
             var teleHolder = holder as TeleViewHolder
             list[position].let {
                 teleHolder.apply {
-                    tvName.text = it.name
+                    tvName.text = it.id
                     Picasso.get().load(it.imageUrl).into(tvImage)
                 }
             }
@@ -56,8 +58,9 @@ class ProductItemAdapter(private val listener: Listener): RecyclerView.Adapter<R
             var productHolder = holder as ProductItemViewHolder
             list[position].let {
                 productHolder.apply {
-                    tvProductName.text = it.name
+                    tvProductName.text = it.id
                     Picasso.get().load(it.imageUrl).into(ivProduct)
+                    tvPrice.text = it.price
                     itemView.setOnClickListener {
                         listener.onProductItemClick(list[position])
                     }

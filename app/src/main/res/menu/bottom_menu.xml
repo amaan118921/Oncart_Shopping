@@ -7,9 +7,9 @@
         android:title="@string/home"
         />
     <item
-        android:id="@+id/cartBottom"
-        android:icon="@drawable/grocery_store__1_"
-        android:title="@string/cart"/>
+        android:id="@+id/searchBottom"
+        android:icon="@drawable/magnifiying_glass"
+        android:title="@string/search"/>
     <item
         android:id="@+id/LikedBottom"
         android:icon="@drawable/heart__2_"

@@ -2,10 +2,12 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id("dagger.hilt.android.plugin")
 }
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 android {
     compileSdk 32
 
@@ -50,7 +52,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.3'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
     testImplementation 'junit:junit:4.13.2'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
@@ -60,4 +65,25 @@ dependencies {
     //retrofit and moshi
     implementation 'com.squareup.moshi:moshi-kotlin:1.9.3'
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+    //dagger and hilt
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
+
+    //Gson Converter
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //Circular imageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //viewModel + liveData
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+
+    //room with coroutines
+    implementation("androidx.room:room-runtime:2.4.2")
+    kapt("androidx.room:room-compiler:2.4.2")
+    implementation "androidx.room:room-ktx:2.4.2"
+    implementation 'androidx.room:room-common:2.4.2'
+
 }

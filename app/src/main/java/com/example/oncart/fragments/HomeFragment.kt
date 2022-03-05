@@ -1,6 +1,8 @@
 package com.example.oncart.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -13,6 +15,7 @@ import com.example.oncart.viewModel.ShoppingViewModel
 import com.example.oncart.Utils.Utils
 import com.example.oncart.adapter.ProductFilterAdapter
 import com.example.oncart.adapter.ProductItemAdapter
+import com.example.oncart.application.MyApplication
 import com.example.oncart.helper.Constants
 import com.example.oncart.helper.makeGone
 import com.example.oncart.helper.makeVisible
@@ -21,6 +24,7 @@ import com.example.oncart.model.StartingScreenModel
 import com.example.oncart.viewModel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.network_error.*
+import kotlinx.android.synthetic.main.notification_badge.*
 import kotlinx.android.synthetic.main.progress_bar.*
 import kotlinx.android.synthetic.main.progress_frame.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -31,7 +35,7 @@ class HomeFragment: BaseFragment(), ProductFilterAdapter.IListener, ProductItemA
     private var filterAdapter: ProductFilterAdapter? = null
     private var productAdapter: ProductItemAdapter? = null
     private val viewModel: ShoppingViewModel by activityViewModels {
-        ViewModelFactory(requireActivity())
+        ViewModelFactory(requireActivity(),(requireActivity().application as MyApplication).database.getDao())
     }
     override fun getLayout(): Int {
         return R.layout.fragment_home
@@ -40,12 +44,22 @@ class HomeFragment: BaseFragment(), ProductFilterAdapter.IListener, ProductItemA
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity()).onBackPressedDispatcher.addCallback(this) {
-            finish()
+            if(finish) {
+                finish()
+            }else {
+                finish = true
+                Utils.showToast(requireActivity(), "Press again to exit...")
+                Handler(Looper.myLooper()!!).postDelayed({
+                    finish = false
+                }, 2000)
+            }
         }
         bottomVisible()
         btnRetry.setOnClickListener(this)
         setUpRecyclerView()
         tvHeader.makeVisible()
+        tvBadge.makeGone()
+        badge.setOnClickListener(this)
         setUpProductRV()
         setObserver()
         getData(getString(R.string.mobile))
@@ -68,12 +82,12 @@ class HomeFragment: BaseFragment(), ProductFilterAdapter.IListener, ProductItemA
     private fun setObserver() {
         viewModel._list.observe(viewLifecycleOwner) {
             hideProgressFrame()
-            productAdapter?.bindList(it, )
+            productAdapter?.bindList(it)
         }
     }
 
     private fun setUpProductRV() {
-        productAdapter = ProductItemAdapter(this)
+        productAdapter = ProductItemAdapter(this, requireContext())
         rvProducts.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         rvProducts.adapter = productAdapter
     }
@@ -98,6 +112,8 @@ class HomeFragment: BaseFragment(), ProductFilterAdapter.IListener, ProductItemA
             R.id.btnRetry -> {
                 loadMobileData()
             }
+            R.id.badge -> {
+            }
         }
     }
 
@@ -121,7 +137,6 @@ class HomeFragment: BaseFragment(), ProductFilterAdapter.IListener, ProductItemA
     }
 
     private fun toDetailFragment(product: ProductItems) {
-
         Bundle().apply {
             putParcelable(Constants.PRODUCT_ITEM, product)
             addFragment(Constants.PRODUCT_DETAIL, this)

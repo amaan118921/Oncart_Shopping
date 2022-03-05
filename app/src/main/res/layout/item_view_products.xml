@@ -34,14 +34,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/ivItem"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="10dp"
                 android:id="@+id/tvItemName"
                 android:gravity="center"
                 android:padding="2dp"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/spartanmedium500"
                 android:text="Realme C11 2021 \n(Cool Blue, 32 GB)  (2 GB RAM)"/>
+       <com.google.android.material.textview.MaterialTextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/tvPrice"
+           android:text="11500"
+           android:padding="2dp"
+           android:textSize="12sp"
+           android:textStyle="bold"
+           android:textColor="@color/app_blue"
+           android:fontFamily="@font/spartanreg"
+           app:layout_constraintTop_toBottomOf="@id/tvItemName"
+           android:gravity="center"
+           android:layout_marginTop="5dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

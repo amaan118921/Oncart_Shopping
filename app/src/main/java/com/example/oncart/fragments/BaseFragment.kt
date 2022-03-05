@@ -12,11 +12,13 @@ import com.example.oncart.activities.MainActivity
 import com.example.oncart.activities.ShoppingActivity
 import com.example.oncart.helper.Constants
 import com.example.oncart.helper.makeGone
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.activity_shopping.*
 
 abstract class BaseFragment: Fragment(), View.OnClickListener {
     abstract fun getLayout(): Int
 
+    var finish = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,15 +39,21 @@ abstract class BaseFragment: Fragment(), View.OnClickListener {
         (requireActivity() as ShoppingActivity).goToHome()
     }
 
-    fun popBackStack() {
-        (requireActivity() as ShoppingActivity).getNavController()?.popBackStack()
+    fun addFragment(id: String, bundle: Bundle?) {
+        (requireActivity() as ShoppingActivity).supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
+            add(R.id.fragmentShoppingContainer, Constants.getFragmentClass(id), bundle, id)
+            addToBackStack(id)
+        }
     }
 
-    fun addFragment(id: String, bundle: Bundle) {
+     fun replaceFragment(id: String, bundle: Bundle?) {
         (requireActivity() as ShoppingActivity).supportFragmentManager.commit {
-            add(R.id.fragmentShoppingContainer, ProductDetailFragment::class.java, bundle, Constants.PRODUCT_DETAIL)
             setReorderingAllowed(true)
-            addToBackStack(Constants.PRODUCT_DETAIL)
+            setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
+            replace(R.id.fragmentShoppingContainer, Constants.getFragmentClass(id), bundle,id)
+            addToBackStack(id)
         }
     }
 
@@ -53,9 +61,20 @@ abstract class BaseFragment: Fragment(), View.OnClickListener {
         return (requireActivity() as ShoppingActivity).supportFragmentManager
     }
 
-    fun removeFragment() {
+    fun removeFragment(frag:Fragment) {
         getSupportFragmentManager().commit {
-            getSupportFragmentManager().findFragmentByTag(Constants.PRODUCT_DETAIL)
+            getSupportFragmentManager().findFragmentByTag(Constants.getIdByFragment(frag))
+                ?.let { remove(it) }
+        }
+    }
+
+    fun popBackStack() {
+           getSupportFragmentManager().popBackStack()
+    }
+
+    fun removeOTP() {
+        getSupportFragmentManager().commit {
+            getSupportFragmentManager().findFragmentByTag(Constants.OTP_ID)
                 ?.let { remove(it) }
         }
     }
@@ -68,4 +87,15 @@ abstract class BaseFragment: Fragment(), View.OnClickListener {
         (requireActivity() as ShoppingActivity).showBottomNav()
     }
 
+    fun initViewPager() {
+        (requireActivity() as ShoppingActivity).initViewPagerWithBottom()
+
+    }
+
+    fun showBottomSheet(id: String, bundle: Bundle?) {
+        Constants.getBottomSheet(id).apply {
+            arguments = bundle
+            show(getSupportFragmentManager(), id)
+        }
+    }
 }

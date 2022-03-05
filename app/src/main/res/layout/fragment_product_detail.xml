@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="false"
-    android:focusable="false"
+    android:clickable="true"
+    android:focusable="true"
     android:background="@color/detail_fragment_top"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -84,5 +84,34 @@
             android:layout_marginHorizontal="35dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/pfDetail"
+        >
+        <include layout="@layout/progress_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/neDetail"
+        >
+        <include layout="@layout/network_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <include layout="@layout/progress_bar"
+        android:visibility="gone"
+        android:id="@+id/pbDetail"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
