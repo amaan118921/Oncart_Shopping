@@ -1,5 +1,6 @@
 package com.example.oncart.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -16,6 +17,7 @@ import com.example.oncart.helper.Constants
 import com.example.oncart.helper.HelpRepo
 import com.example.oncart.helper.makeGone
 import com.example.oncart.helper.makeVisible
+import com.example.oncart.services.NotificationService
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_shopping.*
@@ -37,11 +39,13 @@ class ShoppingActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         if(!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
         setContentView(R.layout.activity_shopping)
+        startService(Intent(this, NotificationService::class.java))
         navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentShoppingContainer) as NavHostFragment
-        if(repo.getSharedPreferences(Constants.PHONE)=="") {
+        if(repo.getSharedPreferences(Constants.PHONE)==""&&repo.getSharedPreferences(Constants.SKIP_FOR_NOW)=="") {
             addFragment()
-        }else {
-            initViewPagerWithBottom()
+        }
+        else {
+            addFragment(Constants.SPLASH_ID, null)
         }
     }
 
@@ -86,7 +90,15 @@ class ShoppingActivity : AppCompatActivity(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.homeBottom -> {viewPager.setCurrentItem(0, true)}
-            R.id.accountBottom -> {viewPager.setCurrentItem(3, true)}
+            R.id.accountBottom -> {
+                if(repo.getSharedPreferences(Constants.PHONE)!=""){viewPager.setCurrentItem(3, true)}
+                else {
+                    Bundle().apply {
+                        putBoolean(Constants.FROM_ACCOUNT, true)
+                        addFragment(Constants.LOGIN_ID, this)
+                    }
+                }
+            }
             R.id.searchBottom -> {viewPager.setCurrentItem(1, true)}
             R.id.LikedBottom -> {viewPager.setCurrentItem(2, true)}
         }
@@ -94,6 +106,15 @@ class ShoppingActivity : AppCompatActivity(),
     }
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
+    }
+
+    private fun addFragment(id: String, bundle: Bundle?) {
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
+            add(R.id.fragmentShoppingContainer, Constants.getFragmentClass(id), bundle, id)
+            addToBackStack(id)
+        }
     }
 
     override fun onPageSelected(position: Int) {

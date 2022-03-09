@@ -30,10 +30,14 @@ class ProductDetailFragment: BaseFragment() {
         ViewModelFactory(requireActivity(),(requireActivity().application as MyApplication).database.getDao())
     }
 
+    @Inject
+    lateinit var repo: HelpRepo
+
     private var productItem: ProductItems? = null
     override fun getLayout(): Int {
         return R.layout.fragment_product_detail
     }
+    private var isLoggedIn = false
     private var cartList = listOf<ProductItems>()
     private var favList = listOf<LikedItems>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +50,7 @@ class ProductDetailFragment: BaseFragment() {
         (requireActivity()).onBackPressedDispatcher.addCallback(this) {
            popBackStack()
         }
+        isLoggedIn = repo.getSharedPreferences(Constants.PHONE)!=""
         initView()
         ivBack.makeVisible()
         badge.makeGone()
@@ -140,32 +145,36 @@ class ProductDetailFragment: BaseFragment() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun checkForFav() {
-        if(!(favList.contains(productItem?.default()?.toLikedItems()))) {
-            productItem?.let { viewModel.addToLiked(it.default().toLikedItems())
-                Utils.showToast(requireActivity(), "Added to Liked")
+        if(isLoggedIn) {
+            if(!(favList.contains(productItem?.default()?.toLikedItems()))) {
+                productItem?.let { viewModel.addToLiked(it.default().toLikedItems())
+                    Utils.showToast(requireActivity(), "Added to Liked")
+                }
+            }else {
+                productItem?.let { viewModel.removeFromLiked(it.default().toLikedItems())
+                    Utils.showToast(requireActivity(), "Remove from Liked")
+                }
             }
-        }else {
-            productItem?.let { viewModel.removeFromLiked(it.default().toLikedItems())
-                Utils.showToast(requireActivity(), "Remove from Liked")
-            }
-        }
+        } else Utils.showToast(requireActivity(), "Login to continue")
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun checkForCart() {
-        cartList.forEach{ productItems ->
-            if(productItem?.id==productItems.id){productItem?.let {
-                viewModel.removeFromCart(it)
-                Utils.showToast(requireActivity(), "Removed from cart")
-              }
-                return
+        if(isLoggedIn){
+            cartList.forEach{ productItems ->
+                if(productItem?.id==productItems.id){productItem?.let {
+                    viewModel.removeFromCart(it)
+                    Utils.showToast(requireActivity(), "Removed from cart")
+                }
+                    return
+                }
             }
-        }
-        productItem?.apply {
-            this.quantity = 1
-            viewModel.addToCart(this)
-            Utils.showToast(requireActivity(), "Added to cart")
-        }
+            productItem?.apply {
+                this.quantity = 1
+                viewModel.addToCart(this)
+                Utils.showToast(requireActivity(), "Added to cart")
+            }
+        }else Utils.showToast(requireActivity(), "Login to continue")
     }
 
     private fun showNetworkFrame() {

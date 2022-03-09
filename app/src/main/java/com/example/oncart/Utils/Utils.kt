@@ -5,10 +5,8 @@ import android.widget.Toast
 import com.example.oncart.helper.toProductItems
 import com.example.oncart.model.LikedItems
 import com.example.oncart.model.ProductItems
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class Utils {
@@ -27,5 +25,19 @@ class Utils {
             }
             return list
         }
-    }
+        suspend fun getFilteredList(query: String?, list: ArrayList<ProductItems>): ArrayList<ProductItems> =
+            withContext(Dispatchers.Default) {
+                 try {
+                    val filtered = arrayListOf<ProductItems>()
+                    list.forEach {
+                        if(query?.let { it1 -> it.id.contains(it1, true) }==true) {
+                            filtered.add(it)
+                        }
+                    }
+                     return@withContext filtered
+                }catch (e: Exception) {
+                     return@withContext listOf<ProductItems>() as ArrayList<ProductItems>
+                }
+            }
+        }
 }

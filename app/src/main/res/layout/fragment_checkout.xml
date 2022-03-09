@@ -6,6 +6,11 @@
     android:focusable="true"
     android:background="@color/detail_fragment_top"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
 
     <include layout="@layout/toolbar"
         android:id="@+id/tbCheckout"/>
@@ -316,4 +321,17 @@
         android:padding="15dp"
         app:cornerRadius="10dp"
         android:layout_marginTop="15dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/transaction_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/transactionLayout"/>
+
+    <include layout="@layout/order_placed_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/orderPlacedLayout"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

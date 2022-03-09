@@ -23,19 +23,14 @@ private val retrofit =
         Constants.BASE_URL
     ).build()
 
-private val retro = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(
-    Constants.BASE_URL
-).build()
-
 interface Products {
     @GET("api/{product}")
     suspend fun getMobiles(@Path("product") product: String): ProductModel
+
+    @GET("api/get/notification")
+    suspend fun getNotifications(): ProductModel
 }
 
 object ProductAPI {
     val retrofitService: Products by lazy { retrofit.create(Products::class.java) }
-}
-
-object API {
-    val retrofitService: Products by lazy { retro.create(Products::class.java) }
 }

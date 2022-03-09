@@ -16,21 +16,34 @@ class Constants {
         const val PRODUCT_ITEM = "product_item"
         const val PRODUCT_DETAIL = "product_detail"
         const val PHONE = "phone"
+        const val NOTIFICATION_CHANNEL_ID = "ONCART_CHANNEL_ID"
+        const val NOTIFICATION_CHANNEL_NAME = "ONCART_CHANNEL_NAME"
         const val TOTAL = "TOTAL"
+        const val PACKAGE_NAME = "com.example.oncart"
         const val CART_ID = "cart_id"
+        const val FROM_ACCOUNT = "FROM_ACCOUNT"
+        const val TOTAL_QUANTITY = "TOTAL_QUANTITY"
         const val APP_NAME = "oncart"
         const val CART = "cart"
         const val CART_ = 11
         const val FAVORITE_ = 10
         const val CARD_DRAWABLE = "CARD_DRAWABLE"
+        const val EDIT_MODE = "EDIT_MODE"
         const val CHECKOUT_ID = "checkout_id"
         const val GOOGLE_REQUEST_CODE = 157
         const val LOGGED_IN = "logged_in"
+        const val AVATAR_ID = "avatar_id"
+        const val NAME = "name"
         const val STARTING_SCREEN_FRAGMENT_ID = "starting_screen_fragment_id"
         const val LOGIN_ID = "login_id"
         const val PROFILE_ID = "profile_id"
         const val OTP_ID = "otp_id"
+        const val NOTIFICATION_ID = "NOTIFICATION_ID"
+        const val SAME_GRP = "SAME_GRP"
         const val CONFIRM_AND_PAY_ID = "confirm_and_pay"
+        const val PROFILE_DIALOG_ID = "profile_dialog"
+        const val SPLASH_ID = "SPLASH_ID"
+        const val SKIP_FOR_NOW = "SKIP_FOR_NOW"
         fun getFragmentClass(id: String): Class<Fragment> {
             return when(id) {
                 PRODUCT_DETAIL -> ProductDetailFragment::class.java as Class<Fragment>
@@ -40,6 +53,9 @@ class Constants {
                 CHECKOUT_ID -> CheckoutFragment::class.java as Class<Fragment>
                 STARTING_SCREEN_FRAGMENT_ID -> StartingFragment::class.java as Class<Fragment>
                 OTP_ID -> OTPFragment::class.java as Class<Fragment>
+                NOTIFICATION_ID -> NotificationFragment::class.java as Class<Fragment>
+                PROFILE_DIALOG_ID -> ProfileDialog::class.java as Class<Fragment>
+                SPLASH_ID -> SplashFragment::class.java as Class<Fragment>
                 else -> HomeFragment::class.java as Class<Fragment>
             }
         }

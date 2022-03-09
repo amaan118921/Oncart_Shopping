@@ -1,6 +1,7 @@
 package com.example.oncart.fragments
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import com.example.oncart.R
 import com.example.oncart.Utils.Utils
+import com.example.oncart.activities.ShoppingActivity
 import com.example.oncart.helper.Constants
 import com.example.oncart.helper.HelpRepo
 import com.google.android.gms.tasks.OnCompleteListener
@@ -33,6 +35,7 @@ class OTPFragment: BaseFragment() {
     private lateinit var userid: String
     private lateinit var dialog: ProgressDialog
     private lateinit var userToken: PhoneAuthProvider.ForceResendingToken
+    private var isFromAccount: Boolean? = false
 
     @Inject
     lateinit var auth: FirebaseAuth
@@ -45,6 +48,7 @@ class OTPFragment: BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         phone = arguments?.getString(Constants.PHONE)?:""
+        isFromAccount = arguments?.getBoolean(Constants.FROM_ACCOUNT)?:false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -187,8 +191,7 @@ class OTPFragment: BaseFragment() {
                     Toast.makeText(requireContext(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT)
                         .show()
                 }
-                Utils.showToast(requireActivity(), p0.message.toString())
-                popBackStack()
+                removeOTP()
             }
 
             override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
@@ -198,7 +201,6 @@ class OTPFragment: BaseFragment() {
             }
         }
         val reqPhone = "+91$phone"
-        Utils.showToast(requireActivity(), reqPhone)
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(reqPhone).setTimeout(60L, TimeUnit.SECONDS)
             .setActivity(requireActivity())
@@ -220,12 +222,15 @@ class OTPFragment: BaseFragment() {
                 } else {
                     Utils.showToast(requireActivity(), "Welcome Back")
                 }
-                popBackStack()
-                initViewPager()
+                if(isFromAccount==false){
+                    removeOTP()
+                    initViewPager()
+                }else {finish()
+                startActivity(Intent(requireActivity(), ShoppingActivity::class.java))}
             } else {
                 dialog.dismiss()
                 Utils.showToast(requireActivity(), "Incorrect otp")
-                popBackStack()
+                removeOTP()
             }
         }
     }

@@ -2,16 +2,11 @@ package com.example.oncart.viewModel
 
 import android.app.Activity
 import androidx.lifecycle.*
-import com.example.oncart.Utils.Utils
-import com.example.oncart.extension.get
+import com.example.oncart.R
 import com.example.oncart.helper.makeVisible
 import com.example.oncart.model.LikedItems
-import com.example.oncart.model.ProductItemModel
 import com.example.oncart.model.ProductItems
-import com.example.oncart.model.ProductModel
-import com.example.oncart.networkServices.API
 import com.example.oncart.networkServices.ProductAPI
-import com.example.oncart.networkServices.Result
 import com.example.oncart.room.AppDao
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -27,6 +22,21 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
     lateinit var _cartList : LiveData<MutableList<ProductItems>>
     lateinit var _likedList : LiveData<List<LikedItems>>
     lateinit var _cart : LiveData<MutableList<ProductItems>>
+    var _notificationProducts = MutableLiveData<ArrayList<ProductItems>>()
+    var _notification = MutableLiveData<ArrayList<ProductItems>>()
+    var _listMobile = MutableLiveData<ArrayList<ProductItems>>()
+    var _listLaptop = MutableLiveData<ArrayList<ProductItems>>()
+    var _listTelevision = MutableLiveData<ArrayList<ProductItems>>()
+    var _listTop = MutableLiveData<ArrayList<ProductItems>>()
+    var _listBottom = MutableLiveData<ArrayList<ProductItems>>()
+
+    init {
+        getMobile()
+        getLaptop()
+        getTele()
+        getTop()
+        getBottom()
+    }
 
     fun getCartItems() {
         viewModelScope.launch {
@@ -106,6 +116,61 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
     fun clearCart() {
         viewModelScope.launch {
             dao.clearCart()
+        }
+    }
+    fun getNotificationProducts() {
+        viewModelScope.launch {
+            try {
+                _notificationProducts.value = ProductAPI.retrofitService.getNotifications().dataArray as ArrayList<ProductItems>
+            }catch (e:Exception){}
+        }
+    }
+
+    fun getNotification() {
+        viewModelScope.launch {
+            try {
+                _notification.value = ProductAPI.retrofitService.getNotifications().dataArray as ArrayList<ProductItems>
+            }catch (e:Exception){}
+        }
+    }
+    private fun getMobile() {
+        viewModelScope.launch {
+            try {
+                _listMobile.value = ProductAPI.retrofitService.getMobiles(activity.getString(R.string.mobile)).dataArray as ArrayList<ProductItems>
+            }
+            catch (e: Exception) {}
+        }
+    }
+    private fun getLaptop() {
+        viewModelScope.launch {
+            try {
+                _listLaptop.value = ProductAPI.retrofitService.getMobiles(activity.getString(R.string.laptops)).dataArray as ArrayList<ProductItems>
+            }
+            catch (e: Exception) {}
+        }
+    }
+    private fun getTele() {
+        viewModelScope.launch {
+            try {
+                _listTelevision.value = ProductAPI.retrofitService.getMobiles(activity.getString(R.string.Television)).dataArray as ArrayList<ProductItems>
+            }
+            catch (e: Exception) {}
+        }
+    }
+    private fun getTop() {
+        viewModelScope.launch {
+            try {
+                _listTop.value = ProductAPI.retrofitService.getMobiles(activity.getString(R.string.men_top_wear)).dataArray as ArrayList<ProductItems>
+            }
+            catch (e: Exception) {}
+        }
+    }
+    private fun getBottom() {
+        viewModelScope.launch {
+            try {
+                _listBottom.value = ProductAPI.retrofitService.getMobiles(activity.getString(R.string.men_bottom_wear)).dataArray as ArrayList<ProductItems>
+            }
+            catch (e: Exception) {}
         }
     }
 }

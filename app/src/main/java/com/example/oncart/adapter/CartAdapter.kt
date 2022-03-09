@@ -22,6 +22,7 @@ class CartAdapter(private var key: Int, private val listener: Listener?): ListAd
     interface Listener {
         fun onIncrementQuantity(productItem: ProductItems)
         fun onDecrementQuantity(productItem: ProductItems)
+        fun onDeleteItem(productItem: ProductItems)
     }
     private var list = listOf<ProductItems>()
 
@@ -39,6 +40,7 @@ class CartAdapter(private var key: Int, private val listener: Listener?): ListAd
         val cvPlus = view.cvPlus
         val cvMinus = view.cvMinus
         val quantityHeader = view.tvQuantity
+        val ivDel = view.ivDelete
     }
 
     companion object {
@@ -62,6 +64,9 @@ class CartAdapter(private var key: Int, private val listener: Listener?): ListAd
                 tvName.text = product.id
                 price.text = product.price
                 Picasso.get().load(product.imageUrl).into(ivItem)
+                ivDel.setOnClickListener {
+                    listener?.onDeleteItem(product)
+                }
                 if(key==Constants.FAVORITE_) {
                     quantityValue.makeGone()
                     cvPlus.makeGone()

@@ -31,6 +31,8 @@ class LoginFragment: BaseFragment() {
         return R.layout.fragment_login
     }
 
+    private var isFromAccount: Boolean? = false
+
     @Inject
     lateinit var auth: FirebaseAuth
 
@@ -40,18 +42,32 @@ class LoginFragment: BaseFragment() {
     @Inject
     lateinit var repo: HelpRepo
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isFromAccount = arguments?.getBoolean(Constants.FROM_ACCOUNT)?:false
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            finish()
+            if(isFromAccount==true){
+                popBackStack()
+                gotToHome()
+            }
+            else finish()
         }
+        if(isFromAccount==true) {tvSkip.makeGone()}
         btnContinue.setOnClickListener(this)
+        tvSkip.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when(view?.id) {
             R.id.btnContinue -> {
                 validate()
+            }
+            R.id.tvSkip -> {
+                repo.setSharedPreferences(Constants.SKIP_FOR_NOW, Constants.SKIP_FOR_NOW)
+                replaceFragment(Constants.SPLASH_ID, null)
             }
         }
     }
@@ -68,6 +84,7 @@ class LoginFragment: BaseFragment() {
     private fun toOTPFragment(phone: String) {
         Bundle().apply {
             putString(Constants.PHONE, phone)
+            isFromAccount?.let { putBoolean(Constants.FROM_ACCOUNT, it) }
             replaceFragment(Constants.OTP_ID, this)
         }
     }

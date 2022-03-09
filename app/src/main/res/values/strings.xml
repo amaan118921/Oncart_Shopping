@@ -77,5 +77,20 @@
     <string name="no_favorites_yet">No favorites yet</string>
     <string name="are_you_sure_you_want_to_clear_cart">Are you sure, you want to clear cart</string>
     <string name="clear_cart">Clear cart</string>
+    <string name="transaction_in_process">Transaction in process</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="transaction">transaction_frag</string>
+    <string name="order_placed_successfully">Order Placed Successfully</string>
+    <string name="shop_more">Shop more</string>
+    <string name="list_of_product_items">list_of_product_items</string>
+    <string name="mi_tv">MI TV</string>
+    <string name="select_an_avatar">Select an Avatar</string>
+    <string name="enter_your_name">Enter your name...</string>
+    <string name="save">Save</string>
+    <string name="complete_profile">Complete your profile</string>
+    <string name="update_profile">update_profile</string>
+    <string name="found_6_results">Found 6 results</string>
+    <string name="skip_">Skip for now</string>
+    <string name="from_account">FROM_ACCOUNT</string>
 
 </resources>

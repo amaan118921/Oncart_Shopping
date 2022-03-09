@@ -12,11 +12,10 @@ import com.example.oncart.Utils.Utils
 import com.example.oncart.Utils.Utils.Companion.toListOfProductItems
 import com.example.oncart.adapter.CartAdapter
 import com.example.oncart.application.MyApplication
-import com.example.oncart.helper.Constants
-import com.example.oncart.helper.makeGone
-import com.example.oncart.helper.makeVisible
+import com.example.oncart.helper.*
 
 import com.example.oncart.model.LikedItems
+import com.example.oncart.model.ProductItems
 import com.example.oncart.viewModel.ShoppingViewModel
 import com.example.oncart.viewModel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_cart.*
@@ -24,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_liked.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class LikedFragment : BaseFragment() {
+class LikedFragment : BaseFragment(), CartAdapter.Listener {
     override fun getLayout(): Int {
         return R.layout.fragment_liked
     }
@@ -94,6 +93,18 @@ class LikedFragment : BaseFragment() {
 
     private fun hideProgressFrame() {
         pfFav.makeGone()
+    }
+
+    override fun onIncrementQuantity(productItem: ProductItems) {
+
+    }
+
+    override fun onDecrementQuantity(productItem: ProductItems) {
+
+    }
+
+    override fun onDeleteItem(productItem: ProductItems) {
+        viewModel.removeFromLiked(productItem.default().toLikedItems())
     }
 
 }

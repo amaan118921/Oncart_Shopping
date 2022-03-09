@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
+import androidx.lifecycle.lifecycleScope
 import com.example.oncart.R
 import com.example.oncart.activities.MainActivity
 import com.example.oncart.activities.ShoppingActivity
@@ -26,6 +27,8 @@ abstract class BaseFragment: Fragment(), View.OnClickListener {
     ): View? {
         return inflater.inflate(getLayout(), container, false)
     }
+
+
 
     fun navigateTo(layoutNavId: Int, bundle: Bundle) {
         (requireActivity() as ShoppingActivity).getNavController()?.navigate(layoutNavId, bundle)
@@ -79,6 +82,13 @@ abstract class BaseFragment: Fragment(), View.OnClickListener {
         }
     }
 
+    fun removeFragment(id: String) {
+        getSupportFragmentManager().commit {
+            getSupportFragmentManager().findFragmentByTag(id)
+                ?.let { remove(it) }
+        }
+    }
+
     fun bottomGone() {
         (requireActivity() as ShoppingActivity).hideBottomNav()
     }
@@ -89,7 +99,6 @@ abstract class BaseFragment: Fragment(), View.OnClickListener {
 
     fun initViewPager() {
         (requireActivity() as ShoppingActivity).initViewPagerWithBottom()
-
     }
 
     fun showBottomSheet(id: String, bundle: Bundle?) {

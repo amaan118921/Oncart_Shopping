@@ -22,4 +22,5 @@
     <color name="transparent">@android:color/transparent</color>
     <color name="detail_fragment_top">#f6f5fa</color>
     <color name="card_quantity_color">#7cccec</color>
+    <color name="transparent_white">#95FFFFFF</color>
 </resources>

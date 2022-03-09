@@ -1,6 +1,6 @@
 package com.example.oncart.eventBus
 
-data class MessageEvent(
+open class MessageEvent(
     var str: String
 ) {
     fun getString(): String {

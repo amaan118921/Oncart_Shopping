@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.oncart.R
 import com.example.oncart.adapter.CartAdapter
 import com.example.oncart.application.MyApplication
+import com.example.oncart.eventBus.MessageEvent
 import com.example.oncart.helper.Constants
 import com.example.oncart.helper.makeGone
 import com.example.oncart.helper.makeVisible
@@ -21,6 +22,8 @@ import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.coroutines.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -34,10 +37,17 @@ class CartFragment: BaseFragment(), CartAdapter.Listener {
             (requireActivity().application as MyApplication).database.getDao())
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if(!(EventBus.getDefault().isRegistered(this))) EventBus.getDefault().register(this)
+    }
+
+    private var totalQuantity = 0
     private var cartAdapter: CartAdapter? = null
     private var cartList = mutableListOf<ProductItems>()
     var totalCost = 0.0
     var totalCostString = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
@@ -48,12 +58,22 @@ class CartFragment: BaseFragment(), CartAdapter.Listener {
         rvCart.adapter = cartAdapter
         getCart()
         setObservers()
+        ivBack.setOnClickListener(this)
         btnCheckout.setOnClickListener(this)
         ivClearCart.makeVisible()
         ivClearCart.setOnClickListener(this)
         ivBack.makeVisible()
         tvCentre.makeVisible()
         badge.makeGone()
+    }
+
+    @Subscribe
+    fun onMessageEvent(event: MessageEvent) {
+        when(event.getString()) {
+            getString(R.string.clear_cart) -> {
+                viewModel.clearCart()
+            }
+        }
     }
 
     private fun setObservers() {
@@ -82,8 +102,9 @@ class CartFragment: BaseFragment(), CartAdapter.Listener {
 
     private fun calculateCosts() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) {
-            cartList.forEach {
-                totalCost+=getPrice(it.price, it.quantity)
+            cartList.forEach { productItems ->
+                productItems.quantity?.let { totalQuantity+=it }
+                totalCost+=getPrice(productItems.price, productItems.quantity)
             }
             withContext(Dispatchers.Main) {
                 tvPriceValue.makeVisible()
@@ -93,7 +114,6 @@ class CartFragment: BaseFragment(), CartAdapter.Listener {
     }
 
     private fun currencyFormatter(num: Double): String {
-        val formatter = DecimalFormat("###,###,###")
         totalCostString =  NumberFormat.getCurrencyInstance(Locale("en", "IN")).format(num)
         return totalCostString
     }
@@ -124,13 +144,13 @@ class CartFragment: BaseFragment(), CartAdapter.Listener {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onClick(view: View?) {
         when(view?.id) {
             R.id.btnCheckout -> {
                 calculateAndAdd()
-
             }
             R.id.ivBack -> {
                 popBackStack()
@@ -156,6 +176,7 @@ class CartFragment: BaseFragment(), CartAdapter.Listener {
     private fun calculateAndAdd() {
         Bundle().apply {
             putString(Constants.TOTAL, totalCostString)
+            putInt(Constants.TOTAL_QUANTITY, totalQuantity)
             addFragment(Constants.CHECKOUT_ID, this)
         }
     }
@@ -169,13 +190,23 @@ class CartFragment: BaseFragment(), CartAdapter.Listener {
     }
 
     override fun onIncrementQuantity(productItem: ProductItems) {
-        totalCost = 0.0
+        resetValue()
         viewModel.increaseQuantity(productItem)
     }
 
-    override fun onDecrementQuantity(productItem: ProductItems) {
+    private fun resetValue() {
         totalCost = 0.0
+        totalQuantity = 0
+    }
+
+    override fun onDecrementQuantity(productItem: ProductItems) {
+        resetValue()
         viewModel.decreaseQuantity(productItem)
+    }
+
+    override fun onDeleteItem(productItem: ProductItems) {
+        resetValue()
+        viewModel.removeFromCart(productItem)
     }
 
 }

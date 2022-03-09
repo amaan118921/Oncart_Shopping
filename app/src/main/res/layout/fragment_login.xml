@@ -138,7 +138,19 @@
            android:textColor="@color/white"
            app:cornerRadius="12dp"
            app:layout_constraintTop_toBottomOf="@id/tvDigitOTP"
-           android:layout_marginTop="38dp"/>
+           android:layout_marginTop="33dp"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSkip"
+                android:text="@string/skip_"
+                android:textStyle="bold"
+                android:textColor="@color/app_blue"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@id/btnContinue"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/spartanmedium500"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
