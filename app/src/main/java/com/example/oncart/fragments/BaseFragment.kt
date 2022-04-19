@@ -1,5 +1,6 @@
 package com.example.oncart.fragments
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,16 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
-import androidx.lifecycle.lifecycleScope
 import com.example.oncart.R
-import com.example.oncart.activities.MainActivity
 import com.example.oncart.activities.ShoppingActivity
 import com.example.oncart.helper.Constants
-import com.example.oncart.helper.makeGone
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.activity_shopping.*
 
-abstract class BaseFragment: Fragment(), View.OnClickListener {
+abstract class BaseFragment: androidx.fragment.app.Fragment(), View.OnClickListener {
     abstract fun getLayout(): Int
 
     var finish = false
@@ -64,7 +61,7 @@ abstract class BaseFragment: Fragment(), View.OnClickListener {
         return (requireActivity() as ShoppingActivity).supportFragmentManager
     }
 
-    fun removeFragment(frag:Fragment) {
+    fun removeFragment(frag: Fragment) {
         getSupportFragmentManager().commit {
             getSupportFragmentManager().findFragmentByTag(Constants.getIdByFragment(frag))
                 ?.let { remove(it) }

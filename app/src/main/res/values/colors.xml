@@ -15,6 +15,7 @@
     <color name="unselected">#551E2D3E</color>
     <color name="login_card_stroke">#e4e5ed</color>
     <color name="app_blue">#5a56e9</color>
+    <color name="app_blue_fade">#455a56e9</color>
     <color name="red">#e53935</color>
     <color name="dot_indicator_purple">#c0b3c2</color>
     <color name="selected_dot_color">#ffff6e</color>

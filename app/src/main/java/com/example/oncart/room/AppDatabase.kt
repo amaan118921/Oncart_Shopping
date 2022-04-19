@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.oncart.model.AddressModel
 import com.example.oncart.model.LikedItems
 import com.example.oncart.model.ProductItems
 
-@Database(entities = [ProductItems::class, LikedItems::class], exportSchema = false, version = 4)
+@Database(entities = [ProductItems::class, LikedItems::class, AddressModel::class], exportSchema = false, version = 6)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun getDao():AppDao
 

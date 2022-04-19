@@ -19,7 +19,7 @@ class SplashFragment: BaseFragment() {
         Handler(Looper.myLooper()!!).postDelayed({
             removeFragment(Constants.SPLASH_ID)
             initViewPager()
-        }, 3000)
+        }, 1500)
     }
 
     override fun onClick(view: View?) {

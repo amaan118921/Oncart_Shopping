@@ -6,12 +6,11 @@
     android:focusable="true"
     android:background="@color/detail_fragment_top"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
-
     <include layout="@layout/toolbar"
         android:id="@+id/tbCheckout"/>
 
@@ -51,6 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
+            android:id="@+id/containerShipInfo"
+            android:visibility="gone"
             >
             <ImageView
                 android:layout_width="20dp"
@@ -121,6 +122,17 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/noShipInfo"
+        android:text="@string/no_shipping_information_available"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/cvShipInfo"
+        android:textSize="11sp"
+        android:textColor="@color/red"
+        />
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvPaymentMethod"
@@ -130,7 +142,7 @@
         android:textStyle="bold"
         android:textSize="14sp"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/cvShipInfo"
+        app:layout_constraintTop_toBottomOf="@id/noShipInfo"
         app:layout_constraintStart_toStartOf="@id/cvShipInfo"/>
 
     <com.google.android.material.card.MaterialCardView

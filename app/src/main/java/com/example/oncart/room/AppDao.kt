@@ -1,6 +1,7 @@
 package com.example.oncart.room
 
 import androidx.room.*
+import com.example.oncart.model.AddressModel
 import com.example.oncart.model.LikedItems
 import com.example.oncart.model.ProductItems
 
@@ -13,11 +14,21 @@ interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addToLiked(productItem: LikedItems)
 
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addAddress(addressModel: AddressModel)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateAddress(addressModel: AddressModel)
+
     @Delete
     suspend fun removeFromCart(productItem: ProductItems)
 
     @Delete
     suspend fun removeFromLiked(likedItem: LikedItems)
+
+    @Delete
+    suspend fun deleteAddress(addressModel: AddressModel)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateCart(productItem: ProductItems)
@@ -30,5 +41,8 @@ interface AppDao {
 
     @Query("SELECT * FROM LikedItems")
     fun getLikedItems(): kotlinx.coroutines.flow.Flow<List<LikedItems>>
+
+    @Query("SELECT * FROM AddressModel")
+    fun getAllAddress(): kotlinx.coroutines.flow.Flow<List<AddressModel>>
 
 }

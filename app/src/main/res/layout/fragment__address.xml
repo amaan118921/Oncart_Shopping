@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <include layout="@layout/toolbar"
+        android:id="@+id/tbAddress"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvNoAddress"
+        android:text="@string/no_address_added"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:textColor="@color/black"
+        android:fontFamily="@font/spartanmedium500"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/tvMaxAddress"
+        app:layout_constraintTop_toBottomOf="@id/tbAddress"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/rvAddress"
+        android:layout_marginHorizontal="15dp"
+        tools:listitem="@layout/item_view_address"
+        tools:itemCount="3"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvMaxAddress"
+        android:text="@string/you_can_add_maximum_of_3_addresses"
+        app:layout_constraintBottom_toTopOf="@id/btnContainer"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:textSize="11sp"
+        android:textColor="@color/red"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/btnContainer"
+        >
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnAddAddress"
+            android:text="@string/add_address"
+            android:textSize="16sp"
+            android:backgroundTint="@color/app_blue"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:fontFamily="@font/spartanmedium500"
+            android:textAllCaps="false"
+            android:padding="12dp"
+            app:cornerRadius="10dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvNoAdd"
+        android:text="@string/no_address_added_"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/app_blue"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.*
 import com.example.oncart.R
 import com.example.oncart.helper.makeVisible
+import com.example.oncart.model.AddressModel
 import com.example.oncart.model.LikedItems
 import com.example.oncart.model.ProductItems
 import com.example.oncart.networkServices.ProductAPI
@@ -29,6 +30,7 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
     var _listTelevision = MutableLiveData<ArrayList<ProductItems>>()
     var _listTop = MutableLiveData<ArrayList<ProductItems>>()
     var _listBottom = MutableLiveData<ArrayList<ProductItems>>()
+    lateinit var _address : LiveData<List<AddressModel>>
 
     init {
         getMobile()
@@ -171,6 +173,32 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
                 _listBottom.value = ProductAPI.retrofitService.getMobiles(activity.getString(R.string.men_bottom_wear)).dataArray as ArrayList<ProductItems>
             }
             catch (e: Exception) {}
+        }
+    }
+    fun addAddress(addressModel: AddressModel) {
+        viewModelScope.launch {
+            try {
+                dao.addAddress(addressModel)
+            }catch (e:Exception){}
+        }
+    }
+    fun updateAddress(addressModel: AddressModel) {
+        viewModelScope.launch {
+            try {
+                dao.updateAddress(addressModel)
+            }catch (e:Exception){}
+        }
+    }
+
+    fun getAddress() {
+        _address = dao.getAllAddress().asLiveData()
+    }
+
+    fun deleteAddress(addressModel: AddressModel) {
+        viewModelScope.launch { 
+            try {
+                dao.deleteAddress(addressModel)
+            }catch (e:Exception){}
         }
     }
 }

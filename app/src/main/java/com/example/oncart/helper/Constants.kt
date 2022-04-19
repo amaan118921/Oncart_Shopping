@@ -44,6 +44,12 @@ class Constants {
         const val PROFILE_DIALOG_ID = "profile_dialog"
         const val SPLASH_ID = "SPLASH_ID"
         const val SKIP_FOR_NOW = "SKIP_FOR_NOW"
+        const val ADD_ADDRESS_ID = "ADD_ADDRESS_ID"
+        const val ADDRESS_ID = "ADDRESS_ID"
+        const val SELECTED_NAME = "SELECTED_NAME"
+        const val SELECTED_ADDRESS = "SELECTED_ADDRESS"
+        const val SELECTED_PHONE = "SELECTED_PHONE"
+        const val SELECTED_ADDRESS_CODE = "SELECTED_ADDRESS_CODE"
         fun getFragmentClass(id: String): Class<Fragment> {
             return when(id) {
                 PRODUCT_DETAIL -> ProductDetailFragment::class.java as Class<Fragment>
@@ -56,6 +62,8 @@ class Constants {
                 NOTIFICATION_ID -> NotificationFragment::class.java as Class<Fragment>
                 PROFILE_DIALOG_ID -> ProfileDialog::class.java as Class<Fragment>
                 SPLASH_ID -> SplashFragment::class.java as Class<Fragment>
+                ADD_ADDRESS_ID -> AddAddressFragment::class.java as Class<Fragment>
+                ADDRESS_ID -> AddressFragment::class.java as Class<Fragment>
                 else -> HomeFragment::class.java as Class<Fragment>
             }
         }

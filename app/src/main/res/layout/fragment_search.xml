@@ -53,7 +53,6 @@
         app:layout_constraintStart_toStartOf="@id/cvSearch"
         app:layout_constraintEnd_toEndOf="@id/cvSearch"
         >
-
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

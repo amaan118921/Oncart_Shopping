@@ -108,7 +108,7 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvName"
+                android:id="@+id/tvNamePayAndNow"
                 android:textSize="13sp"
                 android:layout_marginTop="20dp"
                 android:textColor="?colorControlNormal"
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvExpiry"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvName"
+                app:layout_constraintTop_toTopOf="@id/tvNamePayAndNow"
                 android:text="@string/_04_26"
                 android:textColor="?colorControlNormal"
                 android:textStyle="bold"

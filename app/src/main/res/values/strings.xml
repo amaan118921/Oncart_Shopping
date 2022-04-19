@@ -89,8 +89,20 @@
     <string name="save">Save</string>
     <string name="complete_profile">Complete your profile</string>
     <string name="update_profile">update_profile</string>
-    <string name="found_6_results">Found 6 results</string>
+    <string name="found_6_results">Found 0 results</string>
     <string name="skip_">Skip for now</string>
     <string name="from_account">FROM_ACCOUNT</string>
+    <string name="add_address">Add Address</string>
+    <string name="no_address_added">No address added...</string>
+    <string name="you_can_add_maximum_of_3_addresses">You can add maximum of 3 Addresses.</string>
+    <string name="edit">Edit</string>
+    <string name="enter_your_address">Enter your Address…</string>
+    <string name="enter_your_name_">Enter your name</string>
+    <string name="enter_your_address_">Enter your address</string>
+    <string name="enter_your_phone">Enter your phone</string>
+    <string name="enter_your_phone_">Enter your phone...</string>
+    <string name="no_shipping_information_available">No Shipping Information available</string>
+    <string name="check_for">check_for</string>
+    <string name="no_address_added_">No Address added...</string>
 
 </resources>

@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.View
 import androidx.activity.addCallback
 import com.example.oncart.R
+import com.example.oncart.Utils.Utils
 import com.example.oncart.eventBus.MessageEvent
 import com.example.oncart.helper.Constants
 import com.example.oncart.helper.HelpRepo
@@ -32,6 +33,7 @@ class CheckoutFragment: BaseFragment() {
 
     private var totalCost = "0.00"
     private var totalQuantity = 0
+    private var isShippingAdded = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(!(EventBus.getDefault().isRegistered(this)))EventBus.getDefault().register(this)
@@ -52,9 +54,36 @@ class CheckoutFragment: BaseFragment() {
         tvCentre.makeVisible()
         ivBack.makeVisible()
         tvTotalValue.text = totalCost
+        tvName.text = repo.getSharedPreferences(Constants.NAME)
         btnConfirmAndPay.setOnClickListener(this)
+        tvChange.setOnClickListener(this)
         ivBack.setOnClickListener(this)
         shopMore.setOnClickListener(this)
+        checkForAddress()
+    }
+
+    private fun checkForAddress() {
+        repo.apply {
+            val name = getSharedPreferences(Constants.SELECTED_NAME)
+            val address = getSharedPreferences(Constants.SELECTED_ADDRESS)
+            val phone = getSharedPreferences(Constants.SELECTED_PHONE)
+            if(name.isNotEmpty() && address.isNotEmpty() && phone.isNotEmpty()) {
+                noShipInfo.makeGone()
+                containerShipInfo.makeVisible()
+                initView(name, address, phone)
+                isShippingAdded = true
+            }else {
+                isShippingAdded = false
+                noShipInfo.makeVisible()
+                containerShipInfo.makeGone()
+            }
+        }
+    }
+
+    private fun initView(name: String, address: String, phone: String) {
+        tvName.text = name
+        tvAddress.text = "Address: $address"
+        tvPhone.text = "+91 $phone"
     }
 
     override fun onDestroyView() {
@@ -68,6 +97,7 @@ class CheckoutFragment: BaseFragment() {
             getString(R.string.transaction) -> {
                 executeTransaction()
             }
+            getString(R.string.check_for) -> checkForAddress()
         }
     }
 
@@ -86,11 +116,13 @@ class CheckoutFragment: BaseFragment() {
                 popBackStack()
             }
             R.id.btnConfirmAndPay -> {
-                checkAndShow()
+                if(isShippingAdded) checkAndShow()
+                else Utils.showToast(requireActivity(), "Add shipping address")
             }
             R.id.shopMore -> {
                 navigateToHome()
             }
+            R.id.tvChange -> addFragment(Constants.ADDRESS_ID, null)
         }
     }
 

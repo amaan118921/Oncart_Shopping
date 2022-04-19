@@ -26,4 +26,7 @@ class HelpRepo @Inject constructor(@ApplicationContext private val context: Cont
     fun clearSharedPreferences() {
         editor.clear().apply()
     }
+    fun deleteSharedPreferences(key: String) {
+        editor.remove(key).apply()
+    }
 }

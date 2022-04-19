@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/detail_fragment_top"
-    android:clickable="false"
-    android:focusable="false"
+    android:clickable="true"
+    android:focusable="true"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout

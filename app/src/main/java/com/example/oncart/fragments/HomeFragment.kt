@@ -81,7 +81,7 @@ class HomeFragment : BaseFragment(), ProductFilterAdapter.IListener, ProductItem
         setUpRecyclerView()
         tvHeader.makeVisible()
         tvBadge.makeGone()
-        badge.setOnClickListener(this)
+        flBadge.setOnClickListener(this)
         setUpProductRV()
         setObserver()
         viewModel.getNotificationProducts()
@@ -175,7 +175,7 @@ class HomeFragment : BaseFragment(), ProductFilterAdapter.IListener, ProductItem
             R.id.btnRetry -> {
                 loadMobileData()
             }
-            R.id.badge -> {
+            R.id.flBadge -> {
                 addFragment(Constants.NOTIFICATION_ID, null)
             }
         }

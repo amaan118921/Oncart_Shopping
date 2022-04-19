@@ -8,17 +8,25 @@ import android.view.ViewGroup
 import com.example.oncart.R
 import com.example.oncart.eventBus.MessageEvent
 import com.example.oncart.helper.Constants
+import com.example.oncart.helper.HelpRepo
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.confirm_and_pay_bottom.*
 import kotlinx.android.synthetic.main.fragment_checkout.*
 import org.greenrobot.eventbus.EventBus
-
+import javax.inject.Inject
+@AndroidEntryPoint
 class ConfirmAndPay: BottomSheetDialogFragment(), View.OnClickListener {
 
     private var intDrawable = R.drawable.visa
     private var totalCost = "0.00"
     private var totalQuantity = 0
+
+    @Inject
+    lateinit var repo: HelpRepo
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         intDrawable = arguments?.getInt(Constants.CARD_DRAWABLE)?:R.drawable.visa
@@ -40,6 +48,7 @@ class ConfirmAndPay: BottomSheetDialogFragment(), View.OnClickListener {
         tvProductsValue.text = totalQuantity.toString()
         tvPriceValue.text = totalCost
         isCancelable = true
+        tvNamePayAndNow.text = repo.getSharedPreferences(Constants.NAME)
         btnPayNow.setOnClickListener(this)
     }
 
