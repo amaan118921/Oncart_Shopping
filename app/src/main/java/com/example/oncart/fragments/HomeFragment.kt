@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -123,7 +124,7 @@ class HomeFragment : BaseFragment(), ProductFilterAdapter.IListener, ProductItem
     }
 
     private fun setObserver() {
-        viewModel._list.observe(viewLifecycleOwner) {
+        viewModel.list.observe(viewLifecycleOwner) {
             hideProgressFrame()
             productAdapter?.bindList(it)
         }

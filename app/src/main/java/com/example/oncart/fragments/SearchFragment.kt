@@ -57,19 +57,19 @@ class SearchFragment: BaseFragment(), SearchAdapter.Listener, SearchView.OnQuery
     }
 
     private fun setObservers() {
-        viewModel._listMobile.observe(viewLifecycleOwner) {
+        viewModel.listMobile.observe(viewLifecycleOwner) {
             addList(it)
         }
-        viewModel._listLaptop.observe(viewLifecycleOwner) {
+        viewModel.listLaptop.observe(viewLifecycleOwner) {
             addList(it)
         }
-        viewModel._listTelevision.observe(viewLifecycleOwner) {
+        viewModel.listTelevision.observe(viewLifecycleOwner) {
             addList(it)
         }
-        viewModel._listTop.observe(viewLifecycleOwner) {
+        viewModel.listTop.observe(viewLifecycleOwner) {
             addList(it)
         }
-        viewModel._listBottom.observe(viewLifecycleOwner) {
+        viewModel.listBottom.observe(viewLifecycleOwner) {
             addList(it)
         }
     }
