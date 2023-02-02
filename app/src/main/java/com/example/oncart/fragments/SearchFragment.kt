@@ -34,8 +34,7 @@ class SearchFragment: BaseFragment(), SearchAdapter.Listener, SearchView.OnQuery
     private var searchJob: Job? = null
     private val viewModel: ShoppingViewModel by activityViewModels {
         ViewModelFactory(
-            requireActivity(),
-            (requireActivity().application as MyApplication).database.getDao()
+            (requireActivity().application as MyApplication).database.getDao(), (requireActivity().application as MyApplication)
         )
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

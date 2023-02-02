@@ -33,8 +33,9 @@ class CartFragment: BaseFragment(), CartAdapter.Listener {
         return R.layout.fragment_cart
     }
     private val viewModel: ShoppingViewModel by activityViewModels {
-        ViewModelFactory(requireActivity(),
-            (requireActivity().application as MyApplication).database.getDao())
+        ViewModelFactory(
+            (requireActivity().application as MyApplication).database.getDao(), (requireActivity().application as MyApplication)
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

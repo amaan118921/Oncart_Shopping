@@ -27,7 +27,9 @@ import javax.inject.Inject
 class ProductDetailFragment: BaseFragment() {
 
     private val viewModel: ShoppingViewModel by activityViewModels {
-        ViewModelFactory(requireActivity(),(requireActivity().application as MyApplication).database.getDao())
+        ViewModelFactory(
+            (requireActivity().application as MyApplication).database.getDao(), (requireActivity().application as MyApplication)
+        )
     }
 
     @Inject

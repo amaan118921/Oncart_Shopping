@@ -1,6 +1,5 @@
 package com.example.oncart.fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
@@ -22,7 +21,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.clear_cart_bottom.*
 import kotlinx.android.synthetic.main.fragment__address.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -39,8 +37,7 @@ class AddressFragment: BaseFragment(), AddressAdapter.Listener {
     private var requiredColor: Int? = null
     private val viewModel: ShoppingViewModel by activityViewModels {
         ViewModelFactory(
-            requireActivity(),
-            (requireActivity().application as MyApplication).database.getDao()
+            (requireActivity().application as MyApplication).database.getDao(), (requireActivity().application as MyApplication)
         )
     }
     @Inject

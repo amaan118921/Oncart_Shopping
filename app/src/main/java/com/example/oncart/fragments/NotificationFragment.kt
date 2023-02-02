@@ -20,7 +20,9 @@ class NotificationFragment: BaseFragment() {
         return R.layout.fragment_notification
     }
     private val viewModel: ShoppingViewModel by activityViewModels {
-        ViewModelFactory(requireActivity(),(requireActivity().application as MyApplication).database.getDao())
+        ViewModelFactory(
+            (requireActivity().application as MyApplication).database.getDao(), (requireActivity().application as MyApplication)
+        )
     }
 
     private var notificationAdapter: NotificationAdapter? = null

@@ -1,6 +1,8 @@
 package com.example.oncart.viewModel
 
 import android.app.Activity
+import android.app.Application
+import android.content.Context
 import androidx.lifecycle.*
 import com.example.oncart.R
 import com.example.oncart.helper.makeVisible
@@ -17,7 +19,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
 
-class ShoppingViewModel(private val activity: Activity, private val dao: AppDao): ViewModel() {
+class ShoppingViewModel(private val dao: AppDao, application: Application): AndroidViewModel(application) {
 
     private var database = FirebaseDatabase.getInstance()
     private var auth = FirebaseAuth.getInstance()
@@ -111,7 +113,6 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
                 _list.value = array
             }
             override fun onCancelled(error: DatabaseError) {
-                activity.neHome?.makeVisible()
             }
         })
     }
@@ -163,7 +164,7 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
         viewModelScope.launch {
             _listMobile.value = arrayListOf()
             val list = arrayListOf<ProductItems>()
-            val databaseRef = database.reference.child("products").child(activity.getString(R.string.mobile))
+            val databaseRef = database.reference.child("products").child(getContext().getString(R.string.mobile))
             databaseRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for(snap: DataSnapshot in snapshot.children) {
@@ -181,7 +182,7 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
         viewModelScope.launch {
             _listLaptop.value = arrayListOf()
             val list = arrayListOf<ProductItems>()
-            val databaseRef = database.reference.child("products").child(activity.getString(R.string.laptops))
+            val databaseRef = database.reference.child("products").child(getContext().getString(R.string.laptops))
             databaseRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for(snap: DataSnapshot in snapshot.children) {
@@ -193,7 +194,6 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
                     _listLaptop.value = list
                 }
                 override fun onCancelled(error: DatabaseError) {
-                    activity.neHome?.makeVisible()
                 }
             })
         }
@@ -202,7 +202,7 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
         viewModelScope.launch {
             _listTelevision.value = arrayListOf()
             val list = arrayListOf<ProductItems>()
-            val databaseRef = database.reference.child("products").child(activity.getString(R.string.Television))
+            val databaseRef = database.reference.child("products").child(getContext().getString(R.string.Television))
             databaseRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for(snap: DataSnapshot in snapshot.children) {
@@ -222,7 +222,7 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
         viewModelScope.launch {
             _listTop.value = arrayListOf()
             val list = arrayListOf<ProductItems>()
-            val databaseRef = database.reference.child("products").child(activity.getString(R.string.men_top_wear))
+            val databaseRef = database.reference.child("products").child(getContext().getString(R.string.men_top_wear))
             databaseRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for(snap: DataSnapshot in snapshot.children) {
@@ -242,7 +242,7 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
         viewModelScope.launch {
             _listBottom.value = arrayListOf()
             val list = arrayListOf<ProductItems>()
-            val databaseRef = database.reference.child("products").child(activity.getString(R.string.men_bottom_wear))
+            val databaseRef = database.reference.child("products").child(getContext().getString(R.string.men_bottom_wear))
             databaseRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for(snap: DataSnapshot in snapshot.children) {
@@ -284,12 +284,16 @@ class ShoppingViewModel(private val activity: Activity, private val dao: AppDao)
             }catch (e:Exception){}
         }
     }
+
+    fun getContext(): Context {
+        return getApplication<Application>().applicationContext
+    }
 }
 
-class ViewModelFactory(private val activity: Activity, private val dao: AppDao): ViewModelProvider.Factory {
+class ViewModelFactory(private val dao: AppDao, private val application: Application): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(ShoppingViewModel::class.java)) {
-            return ShoppingViewModel(activity, dao) as T
+            return ShoppingViewModel(dao, application) as T
         }
         throw IllegalStateException("Unknown")
     }

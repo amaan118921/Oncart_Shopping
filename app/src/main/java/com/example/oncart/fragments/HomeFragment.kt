@@ -47,8 +47,7 @@ class HomeFragment : BaseFragment(), ProductFilterAdapter.IListener, ProductItem
     private var isReceiverRegistered = false
     private val viewModel: ShoppingViewModel by activityViewModels {
         ViewModelFactory(
-            requireActivity(),
-            (requireActivity().application as MyApplication).database.getDao()
+            (requireActivity().application as MyApplication).database.getDao(), (requireActivity().application as MyApplication)
         )
     }
 
