@@ -11,7 +11,7 @@ class Constants {
     companion object {
         const val ERROR_MSG = "Something went wrong, try again later..."
         const val HOME_LABEL = "HomeFragment"
-        const val BASE_URL = "https://oncart-api-backend.herokuapp.com/"
+        const val BASE_URL = "https://node-production-bbac.up.railway.app/products/"
         const val PRODUCT_DETAIL_FRAGMENT = R.id.productDetailFragment
         const val PRODUCT_ITEM = "product_item"
         const val PRODUCT_DETAIL = "product_detail"

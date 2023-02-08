@@ -24,7 +24,7 @@ private val retrofit =
     ).build()
 
 interface Products {
-    @GET("api/{product}")
+    @GET("/{product}")
     suspend fun getMobiles(@Path("product") product: String): ProductModel
 
     @GET("api/get/notification")

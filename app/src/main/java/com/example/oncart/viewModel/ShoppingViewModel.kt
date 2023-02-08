@@ -23,7 +23,6 @@ class ShoppingViewModel(private val dao: AppDao, application: Application): Andr
 
     private var database = FirebaseDatabase.getInstance()
     private var auth = FirebaseAuth.getInstance()
-    private var array = arrayListOf<ProductItems>()
     private var _list = MutableLiveData<ArrayList<ProductItems>>()
     var list: LiveData<ArrayList<ProductItems>> = _list
     lateinit var _cartList : LiveData<MutableList<ProductItems>>
@@ -93,28 +92,12 @@ class ShoppingViewModel(private val dao: AppDao, application: Application): Andr
         }
     }
     fun getMobileProducts(product: String) {
-//        viewModelScope.launch {
-//            try {
-//                _list.value = ProductAPI.retrofitService.getMobiles(product).dataArray as ArrayList<ProductItems>
-//            }
-//            catch (e: Exception) {
-//                activity.neHome?.makeVisible()
-//            }
-//        }
-        _list.value = arrayListOf()
-        array.clear()
-        val databaseRef = database.reference.child("products").child(product)
-        databaseRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for(snap: DataSnapshot in snapshot.children) {
-                    val data = snap.getValue(ProductItems::class.java)
-                    array.add(data!!)
-                }
-                _list.value = array
+        viewModelScope.launch {
+            try {
+                _list.value = ProductAPI.retrofitService.getMobiles(product).dataArray as ArrayList<ProductItems>
             }
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
+            catch (e: Exception) { }
+        }
     }
     private fun updateCart(productItem: ProductItems) {
         viewModelScope.launch {
@@ -162,100 +145,37 @@ class ShoppingViewModel(private val dao: AppDao, application: Application): Andr
     }
     private fun getMobile() {
         viewModelScope.launch {
-            _listMobile.value = arrayListOf()
-            val list = arrayListOf<ProductItems>()
-            val databaseRef = database.reference.child("products").child(getContext().getString(R.string.mobile))
-            databaseRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for(snap: DataSnapshot in snapshot.children) {
-                        val data = snap.getValue(ProductItems::class.java)
-                        list.add(data!!)
-                    }
-                    _listMobile.value = list
-                }
-                override fun onCancelled(error: DatabaseError) {
-                }
-            })
+            try {
+                _listMobile.value = ProductAPI.retrofitService.getMobiles(getContext().getString(R.string.mobile)).dataArray as ArrayList<ProductItems>
+            }catch (e: Exception) {}
         }
     }
     private fun getLaptop() {
         viewModelScope.launch {
-            _listLaptop.value = arrayListOf()
-            val list = arrayListOf<ProductItems>()
-            val databaseRef = database.reference.child("products").child(getContext().getString(R.string.laptops))
-            databaseRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for(snap: DataSnapshot in snapshot.children) {
-                        val data = snap.getValue(ProductItems::class.java)
-                        if (data != null) {
-                            list.add(data)
-                        }
-                    }
-                    _listLaptop.value = list
-                }
-                override fun onCancelled(error: DatabaseError) {
-                }
-            })
+            try {
+                _listLaptop.value = ProductAPI.retrofitService.getMobiles(getContext().getString(R.string.laptops)).dataArray as ArrayList<ProductItems>
+            }catch (e: Exception) {}
         }
     }
     private fun getTele() {
         viewModelScope.launch {
-            _listTelevision.value = arrayListOf()
-            val list = arrayListOf<ProductItems>()
-            val databaseRef = database.reference.child("products").child(getContext().getString(R.string.Television))
-            databaseRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for(snap: DataSnapshot in snapshot.children) {
-                        val data = snap.getValue(ProductItems::class.java)
-                        if (data != null) {
-                            list.add(data)
-                        }
-                    }
-                    _listTelevision.value = list
-                }
-                override fun onCancelled(error: DatabaseError) {
-                }
-            })
+            try {
+                _listTelevision.value = ProductAPI.retrofitService.getMobiles(getContext().getString(R.string.Television)).dataArray as ArrayList<ProductItems>
+            }catch (e: Exception) {}
         }
     }
     private fun getTop() {
         viewModelScope.launch {
-            _listTop.value = arrayListOf()
-            val list = arrayListOf<ProductItems>()
-            val databaseRef = database.reference.child("products").child(getContext().getString(R.string.men_top_wear))
-            databaseRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for(snap: DataSnapshot in snapshot.children) {
-                        val data = snap.getValue(ProductItems::class.java)
-                        if (data != null) {
-                            list.add(data)
-                        }
-                    }
-                    _listTop.value = list
-                }
-                override fun onCancelled(error: DatabaseError) {
-                }
-            })
+            try {
+                _listTop.value = ProductAPI.retrofitService.getMobiles(getContext().getString(R.string.men_top_wear)).dataArray as ArrayList<ProductItems>
+            }catch (e: Exception) {}
         }
     }
     private fun getBottom() {
         viewModelScope.launch {
-            _listBottom.value = arrayListOf()
-            val list = arrayListOf<ProductItems>()
-            val databaseRef = database.reference.child("products").child(getContext().getString(R.string.men_bottom_wear))
-            databaseRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for(snap: DataSnapshot in snapshot.children) {
-                        val data = snap.getValue(ProductItems::class.java)
-                        if (data != null) {
-                            list.add(data)
-                        }
-                    }
-                    _listBottom.value = list
-                }
-                override fun onCancelled(error: DatabaseError) {
-                }
-            })
+            try {
+                _listBottom.value = ProductAPI.retrofitService.getMobiles(getContext().getString(R.string.men_bottom_wear)).dataArray as ArrayList<ProductItems>
+            }catch (e: Exception) {}
         }
     }
     fun addAddress(addressModel: AddressModel) {

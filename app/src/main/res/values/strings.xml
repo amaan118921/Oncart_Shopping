@@ -7,13 +7,13 @@
     <string name="begin_your_journey_with_oncart">Begin your Journey with Oncart</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
-    <string name="laptops">Laptops</string>
+    <string name="laptops">laptop</string>
     <string name="men_top">Men TopWears</string>
-    <string name="men_top_wear">Men Topwear</string>
-    <string name="men_bottom_wear">Men Bottomwear</string>
+    <string name="men_top_wear">mentopwear</string>
+    <string name="men_bottom_wear">menbottomwear</string>
     <string name="men_bottom">Men BottomWears</string>
     <string name="Televisions">Televisions</string>
-    <string name="Television">Television</string>
+    <string name="Television">television</string>
     <string name="remove_from_cart">Remove from Cart</string>
     <string name="password">Password</string>
     <string name="or">Or continue with</string>
@@ -29,7 +29,7 @@
     <string name="error_msg">Failed, try again in some time or use alternate method of authentication</string>
     <string name="welcome">Welcome</string>
     <string name="mobiles">Mobiles</string>
-    <string name="mobile">Mobile</string>
+    <string name="mobile">mobile</string>
     <string name="our_products">Our Products</string>
     <string name="your_internet_connection_is_currently_n_not_available_please_check_or_try_again">Your internet connection is currently\n not available please check or try again.</string>
     <string name="try_again">Try again</string>
